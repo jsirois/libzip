@@ -65,6 +65,7 @@ add_library(zip
   zip_replace.c
   zip_set_archive_comment.c
   zip_set_archive_flag.c
+  zip_set_archive_prefix.c
   zip_set_default_password.c
   zip_set_file_comment.c
   zip_set_file_compression.c

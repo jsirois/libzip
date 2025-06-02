@@ -165,6 +165,15 @@ zip_close(zip_t *za) {
         free(filelist);
         return -1;
     }
+
+    if (za->prefix_changed) {
+        if (_zip_write(za, za->prefix_changes->data, za->prefix_changes->length) != 0) {
+            zip_error_set(&za->error, ZIP_ER_INTERNAL, 0);
+            free(filelist);
+            return -1;
+        }
+    }
+
     error = 0;
     for (j = 0; j < survivors; j++) {
         int new_data;

@@ -285,6 +285,7 @@ typedef struct zip_dirent zip_dirent_t;
 typedef struct zip_entry zip_entry_t;
 typedef struct zip_extra_field zip_extra_field_t;
 typedef struct zip_string zip_string_t;
+typedef struct zip_prefix zip_prefix_t;
 typedef struct zip_buffer zip_buffer_t;
 typedef struct zip_hash zip_hash_t;
 typedef struct zip_progress zip_progress_t;
@@ -300,6 +301,10 @@ struct zip {
     unsigned int ch_flags; /* changed archive global flags */
 
     char *default_password; /* password used when no other supplied */
+
+    zip_prefix_t *prefix_orig;    /* archive prefix */
+    zip_prefix_t *prefix_changes; /* changed archive prefix */
+    bool prefix_changed;          /* whether archive prefix was changed */
 
     zip_string_t *comment_orig;    /* archive comment */
     zip_string_t *comment_changes; /* changed archive comment */
@@ -451,6 +456,14 @@ struct zip_string {
     enum zip_encoding_type encoding; /* autorecognized encoding */
     zip_uint8_t *converted;          /* autoconverted string */
     zip_uint32_t converted_length;   /* length of converted */
+};
+
+
+/* archive prefix */
+
+struct zip_prefix {
+    const zip_uint8_t *data;
+    zip_uint64_t length;
 };
 
 

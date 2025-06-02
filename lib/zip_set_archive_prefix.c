@@ -1,6 +1,6 @@
 /*
-  zip_new.c -- create and init struct zip
-  Copyright (C) 1999-2024 Dieter Baron and Thomas Klausner
+  zip_set_archive_prefix.c -- set archive prefix
+  Copyright (C) 2025 Dieter Baron and Thomas Klausner
 
   This file is part of libzip, a library to manipulate ZIP archives.
   The authors can be contacted at <info@libzip.org>
@@ -32,45 +32,29 @@
 */
 
 
+#include "zipint.h"
 #include <stdlib.h>
 
-#include "zipint.h"
 
+ZIP_EXTERN int
+zip_set_archive_prefix(zip_t *za, const zip_uint8_t *data, zip_uint64_t length) {
+    zip_prefix_t *prefix;
 
-/* _zip_new:
-   creates a new zipfile struct, and sets the contents to zero; returns
-   the new struct. */
-
-zip_t *
-_zip_new(zip_error_t *error) {
-    zip_t *za;
-
-    za = (zip_t *)malloc(sizeof(struct zip));
-    if (za == NULL) {
-        zip_error_set(error, ZIP_ER_MEMORY, 0);
-        return NULL;
+    if (ZIP_IS_RDONLY(za)) {
+        zip_error_set(&za->error, ZIP_ER_RDONLY, 0);
+        return -1;
     }
 
-    if ((za->names = _zip_hash_new(error)) == NULL) {
-        free(za);
-        return NULL;
+    if ((prefix = (zip_prefix_t *)malloc(sizeof(*prefix))) == NULL) {
+        zip_error_set(&za->error, ZIP_ER_MEMORY, 0);
+        return -1;
     }
 
-    za->src = NULL;
-    za->open_flags = 0;
-    zip_error_init(&za->error);
-    za->flags = za->ch_flags = 0;
-    za->default_password = NULL;
-    za->prefix_orig = za->prefix_changes = NULL;
-    za->prefix_changed = 0;
-    za->comment_orig = za->comment_changes = NULL;
-    za->comment_changed = 0;
-    za->nentry = za->nentry_alloc = 0;
-    za->entry = NULL;
-    za->nopen_source = za->nopen_source_alloc = 0;
-    za->open_source = NULL;
-    za->progress = NULL;
-    za->torrent_mtime = 0;
+    prefix->data = data;
+    prefix->length = length;
 
-    return za;
+    za->prefix_changes = prefix;
+    za->prefix_changed = 1;
+
+    return 0;
 }
