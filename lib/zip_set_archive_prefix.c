@@ -45,8 +45,22 @@ zip_set_archive_prefix(zip_t *za, const zip_uint8_t *data, zip_uint64_t length) 
         return -1;
     }
 
+    if (data == NULL && length == 0) {
+        if (za->prefix_changes != NULL) {
+            free(za->prefix_changes);
+        }
+        za->prefix_changes = NULL;
+        za->prefix_changed = 0;
+        return 0;
+    }
+
     if ((prefix = (zip_prefix_t *)malloc(sizeof(*prefix))) == NULL) {
         zip_error_set(&za->error, ZIP_ER_MEMORY, 0);
+        return -1;
+    }
+
+    if (za->prefix_orig > 0 && (za->src->supports & ZIP_SOURCE_SEEK_WRITE) != ZIP_SOURCE_SEEK_WRITE) {
+        zip_error_set(&za->error, ZIP_ER_OPNOTSUPP, 0);
         return -1;
     }
 

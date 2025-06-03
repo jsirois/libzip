@@ -302,7 +302,7 @@ struct zip {
 
     char *default_password; /* password used when no other supplied */
 
-    zip_prefix_t *prefix_orig;    /* archive prefix */
+    zip_uint64_t prefix_orig;    /* archive prefix */
     zip_prefix_t *prefix_changes; /* changed archive prefix */
     bool prefix_changed;          /* whether archive prefix was changed */
 

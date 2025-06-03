@@ -61,7 +61,8 @@ _zip_new(zip_error_t *error) {
     zip_error_init(&za->error);
     za->flags = za->ch_flags = 0;
     za->default_password = NULL;
-    za->prefix_orig = za->prefix_changes = NULL;
+    za->prefix_orig = 0;
+    za->prefix_changes = NULL;
     za->prefix_changed = 0;
     za->comment_orig = za->comment_changes = NULL;
     za->comment_changed = 0;
