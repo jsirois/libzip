@@ -1,3 +1,4 @@
+.\" Automatically generated from an mdoc input file.  Do not edit.
 .\" zip_set_archive_prefix.mdoc -- set zip archive prefix
 .\" Copyright (C) 2025 Dieter Baron and Thomas Klausner
 .\"
@@ -29,53 +30,57 @@
 .\" OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 .\" IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
-.Dd June 6, 2025
-.Dt ZIP_SET_ARCHIVE_PREFIX 3
-.Os
-.Sh NAME
-.Nm zip_set_archive_prefix
-.Nd set zip archive prefix
-.Sh LIBRARY
+.TH "ZIP_SET_ARCHIVE_PREFIX" "3" "June 6, 2025" "NiH" "Library Functions Manual"
+.nh
+.if n .ad l
+.SH "NAME"
+\fBzip_set_archive_prefix\fR
+\- set zip archive prefix
+.SH "LIBRARY"
 libzip (-lzip)
-.Sh SYNOPSIS
-.In zip.h
-.Ft int
-.Fn zip_set_archive_prefix "zip_t *archive" "const zip_uint8_t *data" "zip_uint64_t length"
-.Sh DESCRIPTION
+.SH "SYNOPSIS"
+\fB#include <zip.h>\fR
+.sp
+\fIint\fR
+.br
+.PD 0
+.HP 4n
+\fBzip_set_archive_prefix\fR(\fIzip_t\ *archive\fR, \fIconst\ zip_uint8_t\ *data\fR, \fIzip_uint64_t\ length\fR);
+.PD
+.SH "DESCRIPTION"
 The
-.Fn zip_set_archive_prefix
+\fBzip_set_archive_prefix\fR()
 function sets a prefix for the zip archive.
 If
-.Ar data
+\fIdata\fR
 is
-.Dv NULL
+\fRNULL\fR
 and
-.Ar len
+\fIlen\fR
 is 0, the archive prefix will be removed.
-.Sh RETURN VALUES
+.SH "RETURN VALUES"
 Upon successful completion 0 is returned.
 Otherwise, \-1 is returned and the error information in
-.Ar archive
+\fIarchive\fR
 is set to indicate the error.
-.Sh ERRORS
-.Fn zip_set_archive_prefix
+.SH "ERRORS"
+\fBzip_set_archive_prefix\fR()
 fails if:
-.Bl -tag -width Er
-.It Bq Er ZIP_ER_RDONLY
+.TP 19n
+[\fRZIP_ER_RDONLY\fR]
 The
-.Ar archive
+\fIarchive\fR
 was opened in read-only mode.
-.It Bq Er ZIP_ER_MEMORY
+.TP 19n
+[\fRZIP_ER_MEMORY\fR]
 Required memory could not be allocated.
-.El
-.Sh SEE ALSO
-.Xr libzip 3
-.Xr zip_file_get_prefix 3
-.Sh HISTORY
-.Fn zip_set_archive_prefix
+.SH "SEE ALSO"
+libzip(3)
+zip_file_get_prefix(3)
+.SH "HISTORY"
+\fBzip_set_archive_prefix\fR()
 was added in libzip 0.11.5.
-.Sh AUTHORS
-.An -nosplit
-.An Dieter Baron Aq Mt dillo@nih.at
+.SH "AUTHORS"
+Dieter Baron <\fIdillo@nih.at\fR>
 and
-.An Thomas Klausner Aq Mt wiz@gatalith.at
+Thomas Klausner <\fIwiz@gatalith.at\fR>

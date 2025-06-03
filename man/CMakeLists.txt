@@ -50,6 +50,7 @@ set(MAN_PAGES
   zip_ftell.3
   zip_get_archive_comment.3
   zip_get_archive_flag.3
+  zip_get_archive_prefix.3
   zip_get_error.3
   zip_get_file_comment.3
   zip_get_name.3
@@ -64,6 +65,7 @@ set(MAN_PAGES
   zip_rename.3
   zip_set_archive_comment.3
   zip_set_archive_flag.3
+  zip_set_archive_prefix.3
   zip_set_default_password.3
   zip_set_file_comment.3
   zip_set_file_compression.3

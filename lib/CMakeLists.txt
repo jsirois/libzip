@@ -46,6 +46,7 @@ add_library(zip
   zip_ftell.c
   zip_get_archive_comment.c
   zip_get_archive_flag.c
+  zip_get_archive_prefix.c
   zip_get_encryption_implementation.c
   zip_get_file_comment.c
   zip_get_name.c
